@@ -2,7 +2,7 @@
 #include <pqrs/gsl.hpp>
 #include <unordered_map>
 
-int main(void) {
+int main() {
   using namespace boost::ut;
   using namespace boost::ut::literals;
   using namespace std::literals;
@@ -25,7 +25,10 @@ int main(void) {
 
   "hash"_test = [] {
     std::unordered_map<pqrs::not_null_shared_ptr_t<std::string>, std::string> map;
-    map.insert({std::make_shared<std::string>("hello"), "world"});
+    pqrs::not_null_shared_ptr_t<std::string> key = std::make_shared<std::string>("hello");
+    map.insert({key, "world"});
+
+    expect("world"sv == map.at(key));
   };
 
   return 0;

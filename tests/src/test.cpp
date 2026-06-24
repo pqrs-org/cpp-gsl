@@ -25,10 +25,13 @@ int main() {
 
   "hash"_test = [] {
     std::unordered_map<pqrs::not_null_shared_ptr_t<std::string>, std::string> map;
-    pqrs::not_null_shared_ptr_t<std::string> key = std::make_shared<std::string>("hello");
-    map.insert({key, "world"});
+    pqrs::not_null_shared_ptr_t<std::string> key1 = std::make_shared<std::string>("hello");
+    pqrs::not_null_shared_ptr_t<std::string> key2 = std::make_shared<std::string>("hello");
+    map.insert({key1, "world1"});
+    map.insert({key2, "world2"});
 
-    expect("world"sv == map.at(key));
+    expect("world1"sv == map.at(key1));
+    expect("world2"sv == map.at(key2));
   };
 
   return 0;

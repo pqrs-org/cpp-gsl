@@ -37,8 +37,8 @@ namespace std {
 // ```
 template <typename T>
 struct hash<pqrs::not_null_shared_ptr_t<T>> final {
-  [[nodiscard]] std::size_t operator()(const pqrs::not_null_shared_ptr_t<T>& value) const noexcept(noexcept(std::hash<T>{}(*value))) {
-    return std::hash<T>{}(*value);
+  [[nodiscard]] std::size_t operator()(const pqrs::not_null_shared_ptr_t<T>& value) const noexcept(noexcept(std::hash<std::shared_ptr<T>>{}(pqrs::unwrap_not_null(value)))) {
+    return std::hash<std::shared_ptr<T>>{}(pqrs::unwrap_not_null(value));
   }
 };
 } // namespace std
